@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Styled Product Grid</title>
+    <style>
+      /* Parent container styles */
+      #parent {
+        border: 2px solid #ccc;
+        display: grid;
+        grid-template-columns: auto auto auto; /* Same as your code */
+        gap: 10px;
+        padding: 5px;
+        background-color: #f9f9f9;
+      }
+
+      /* Product card styles */
+      #parent > div {
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        text-align: center;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      #parent > div:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Product image styles */
+      #parent img {
+        width: 100px; /* Same as your code */
+        height: 100px; /* Ensures consistent height */
+        object-fit: contain;
+        margin-bottom: 10px;
+      }
+
+      /* Product ID styles */
+      #parent > div > div:first-child {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 5px;
+      }
+
+      /* Product title styles */
+      #parent > div > div:nth-child(2) {
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+        color: #333;
+      }
+
+      /* Product price styles */
+      #parent > div > div:last-child {
+        font-size: 1rem;
+        color: #007b5e;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="parent"></div>
+    <script>
+      let parent = document.getElementById("parent");
+      parent.style.border = "2px solid";
+      parent.style.display = "grid";
+      parent.style.gridTemplateColumns = "auto auto auto";
+      parent.style.gap = "10px";
+      parent.style.padding = "5px";
+      async function apidata() {
+        let res = await fetch("https://fakestoreapi.com/products");
+        let data = await res.json();
+        data.map((val) => {
+          child = document.createElement("div");
+          child.style.borderRadius = "5px";
+          child.style.border = "2px solid";
+          childa = document.createElement("div");
+          childb = document.createElement("div");
+          childc = document.createElement("img");
+          childc.setAttribute("src", val.image);
+          childc.style.width = "100px";
+          childd = document.createElement("div");
+          childa.innerHTML = val.id;
+          childb.innerHTML = val.title;
+          childd.innerHTML = val.price;
+          child.append(childa, childb, childc, childd);
+          parent.append(child);
+        });
+      }
+      apidata();
+    </script>
+  </body>
+</html>
